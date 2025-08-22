@@ -1,6 +1,6 @@
 package game;
 
 public class MovementResult {
-	boolean moved = true;
-	Engagement engagement = Engagement.INVALID;
+  boolean moved = true;
+  Engagement engagement = Engagement.INVALID;
 }

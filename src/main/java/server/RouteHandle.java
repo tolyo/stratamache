@@ -5,5 +5,5 @@ import io.netty.handler.codec.http.FullHttpRequest;
 
 @FunctionalInterface
 public interface RouteHandle {
-    RouteResponse handle(ChannelHandlerContext ctx, FullHttpRequest request);
+  RouteResponse handle(ChannelHandlerContext ctx, FullHttpRequest request);
 }
