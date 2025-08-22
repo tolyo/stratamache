@@ -18,8 +18,9 @@ serve:
 	$(MAKE) -j 2 frontend-serve backend-serve
 
 # Run prettier source
-pretty:
+format:
 	@npx prettier . --write
+	./mvnw spotless:apply
 
 # Build for production
 build: clean_build
