@@ -20,7 +20,7 @@
     <junit.jupiter.version>5.10.0</junit.jupiter.version>
   </properties>
 
-  <!-- ✅ Dependency Management for BOM -->
+  <!-- Dependency Management for BOM -->
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -34,7 +34,7 @@
   </dependencyManagement>
 
   <dependencies>
-    <!-- ✅ Netty (use managed version or specify explicitly) -->
+    <!-- Netty (use managed version or specify explicitly) -->
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-all</artifactId>
@@ -84,6 +84,15 @@
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.5.0</version>
+        <configuration>
+          <mainClass>Main</mainClass>
+        </configuration>
+      </plugin>
+
       <!-- Compiler Plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

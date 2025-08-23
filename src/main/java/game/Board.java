@@ -9,8 +9,7 @@ public class Board {
   public static final int HEIGHT = 10;
 
   private static final int[][] LAKE_POSITIONS = {
-    {2, 4}, {2, 5}, {3, 4}, {3, 5}, // Left lake block
-    {6, 4}, {6, 5}, {7, 4}, {7, 5} // Right lake block
+    {2, 4}, {2, 5}, {3, 4}, {3, 5}, {6, 4}, {6, 5}, {7, 4}, {7, 5}
   };
 
   private final Square[][] grid;

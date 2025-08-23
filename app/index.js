@@ -9,9 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (location.hostname === "localhost") {
     try {
       const script = document.createElement("script");
-      if ("async") {
-        script.async = true;
-      }
       script.src =
         "http://localhost:3000/browser-sync/browser-sync-client.js?v=3.0.3";
       if (document.body) {

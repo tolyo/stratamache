@@ -26,12 +26,6 @@
   "homepage": "https://github.com/Angular-Wave/angular-seed#readme",
   "dependencies": {
     "@angular-wave/angular.ts": "latest",
-    "@capacitor/camera": "^6.1.2",
-    "@capacitor/core": "latest",
-    "@capacitor/filesystem": "^6.0.2",
-    "@capacitor/preferences": "^6.0.3",
-    "@capacitor/splash-screen": "latest",
-    "@ionic/pwa-elements": "^3.3.0",
     "modern-normalize": "latest",
     "pollen-css": "^5.0.2",
     "web": "^0.0.2"

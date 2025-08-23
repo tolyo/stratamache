@@ -8,6 +8,7 @@ import { bundle } from "lightningcss";
 const plugins = [
   html({
     minify: true,
+    minifyJS: true, // handles inline <script> in HTML
     transformAsset: (_content, filePath) => {
       if (filePath.endsWith(".css")) {
         let { code } = bundle({
@@ -18,26 +19,17 @@ const plugins = [
       }
     },
   }),
+  resolve(),
+  commonjs(),
+  terser(), // run after HTML + bundling
   copy({ patterns: "./*.{txt}", exclude: "node_modules" }),
-  resolve(), // tells Rollup how to find date-fns in node_modules
-  commonjs(), // converts date-fns to ES modules
-  terser(),
 ];
 
 export default [
   {
     input: "./app/index.html",
     output: {
-      dir: "dist",
-      entryFileNames: "[name].[hash].js",
-    },
-    plugins: plugins,
-  },
-
-  {
-    input: "./app/apps/ionic/ionic.html",
-    output: {
-      dir: "dist",
+      dir: "public",
       entryFileNames: "[name].[hash].js",
     },
     plugins: plugins,

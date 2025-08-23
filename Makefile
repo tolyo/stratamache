@@ -1,5 +1,5 @@
 # Define the build directory
-BUILD_DIR = dist
+BUILD_DIR = public
 DEPS_DIR = node_modules
 
 clean:
@@ -34,7 +34,7 @@ clean_build:
 	fi
 
 frontend-serve: clean_build
-	@node browsersync.cjs	
+	@node browsersync.mjs	
 
 backend-serve:
-	./mvnw liberty:dev
+	./mvnw exec:java
