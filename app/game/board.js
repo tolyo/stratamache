@@ -1,8 +1,9 @@
 import { GRID } from "./constants.js";
 import { Army } from "./army.js";
 import { Side } from "./piece.js";
+import { Square } from "./square.js";
 
-class Board {
+export class Board {
   static WIDTH = 10;
   static HEIGHT = 10;
 
@@ -33,9 +34,14 @@ class Board {
      */
     this.B;
 
+    const board = document.getElementById("board");
+
     // Initialize grid with Square objects
     for (let x = 0; x < Board.WIDTH; x++) {
       this.grid[x] = [];
+      const tileRow = document.createElement("div");
+      tileRow.className = "board-row";
+      board.appendChild(tileRow);
       for (let y = 0; y < Board.HEIGHT; y++) {
         const square = new Square(x, y);
 
@@ -48,6 +54,18 @@ class Board {
         }
 
         this.grid[x][y] = square;
+
+        const tile = document.createElement("div");
+        tile.className = "tile";
+
+        if (Board.isLakeTile(y, x)) {
+          tile.classList.add("lake");
+        }
+
+        tile.id = `tile-${y}-${x}`;
+        tileRow.appendChild(tile);
+
+        square.elem = tile;
       }
     }
 
@@ -298,28 +316,6 @@ export function addTilesToBoard(elem, boardname) {
 }
 
 export function initGrid() {
-  const board = document.getElementById("board");
-  const elements = []; // this may need to go into board
-
-  for (let x = 0; x < Board.WIDTH; x++) {
-    const tileRow = document.createElement("div");
-    tileRow.className = "board-row";
-    board.appendChild(tileRow);
-
-    for (let y = 0; y < Board.WIDTH; y++) {
-      const tile = document.createElement("div");
-      tile.className = "tile";
-
-      if (Board.isLakeTile(y, x)) {
-        tile.classList.add("lake");
-      }
-
-      tile.id = `tile-${y}-${x}`;
-      tileRow.appendChild(tile);
-      elements.push(tile);
-    }
-  }
-
   const army = new Army(Side.NEITHER);
   army.shuffle();
 

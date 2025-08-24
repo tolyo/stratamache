@@ -71,7 +71,10 @@ async function buildCssBundle() {
       await fs.promises.access(entry, fs.constants.R_OK);
 
       // Bundle the CSS
-      const { code } = await lightningBundle({ filename: entry, minify: false });
+      const { code } = await lightningBundle({
+        filename: entry,
+        minify: false,
+      });
 
       // Write to output
       const outputPath = path.join(OUTPUT_DIR, path.basename(entry));
