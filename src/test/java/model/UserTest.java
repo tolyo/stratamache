@@ -3,8 +3,6 @@ package model;
 import static org.junit.jupiter.api.Assertions.*;
 
 import db.Db;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.AfterAll;

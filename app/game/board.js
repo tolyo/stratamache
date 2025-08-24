@@ -25,6 +25,11 @@ export class Board {
     this.grid = [];
 
     /**
+     * @type {Square[]}
+     */
+    this.squares = [];
+
+    /**
      * @type {Army}
      */
     this.A;
@@ -54,6 +59,7 @@ export class Board {
         }
 
         this.grid[x][y] = square;
+        this.squares.push(square);
 
         const tile = document.createElement("div");
         tile.className = "tile";

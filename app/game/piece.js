@@ -72,6 +72,17 @@ export class Piece {
      * @type {Side}
      */
     this.side = Side.NEITHER;
+
+    /**
+     * @type {HTMLDivElement}
+     */
+    this.element;
+
+    // offsets for drag
+    this.shiftX = 0;
+    this.shiftY = 0;
+    this.currentX = 0;
+    this.currentY = 0;
   }
 
   /**
@@ -131,5 +142,70 @@ export class Piece {
       default:
         return Engagement.LOSE;
     }
+  }
+
+  /**
+   * @param {HTMLDivElement} el 
+   */
+  attach(el) {
+    this.element = el;
+    this.element.onmousedown = (e) => this.onmousedown(e);
+    this.element.ondragstart = () => false;
+    this.element.onmouseup = () => false;
+  }
+
+  onmousedown(e) {
+    if (e.button !== undefined && e.button !== 0) return; // only left click or touch
+    e.preventDefault();
+
+    const box = this.element.getBoundingClientRect();
+    this.shiftX = e.pageX - (box.left + window.scrollX);
+    this.shiftY = e.pageY - (box.top + window.scrollY);
+
+    this.element.style.position = "absolute";
+    this.element.style.zIndex = 1000;
+    this.element.classList.add("dragged");
+
+    document.body.appendChild(this.element); // bring to top layer
+
+    document.onmousemove = (moveEvt) => this.onmousemove(moveEvt);
+    document.onmouseup = () => this.onmouseup();
+  }
+
+  onmousemove(e) {
+    e.preventDefault();
+    this.currentX = e.pageX - this.shiftX;
+    this.currentY = e.pageY - this.shiftY;
+
+    this.element.style.left = `${this.currentX}px`;
+    this.element.style.top = `${this.currentY}px`;
+  }
+
+  onmouseup() {
+    // Remove event listeners
+    document.onmousemove = null;
+    document.onmouseup = null;
+    this.element.classList.remove("dragged");
+    this.element.style.zIndex = 1;
+
+    // Snap to nearest square if board and squares exist
+    if (this.position && this.board) {
+      const square = this.board.squares[this.position.y * 8 + this.position.x];
+      if (square && square.elem) {
+        const rect = square.elem.getBoundingClientRect();
+        const boardRect = this.board.elem.getBoundingClientRect();
+
+        this.element.style.left = `${rect.left - boardRect.left}px`;
+        this.element.style.top = `${rect.top - boardRect.top}px`;
+      }
+    }
+  }
+
+  /**
+   * Update piece position in logical board coordinates
+   * @param {Position} pos
+   */
+  setPosition(pos) {
+    this.position = pos;
   }
 }

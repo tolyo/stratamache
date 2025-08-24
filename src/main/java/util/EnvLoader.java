@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public class EnvLoader {
-  private static Map<String, String> fileVars = new HashMap<>();
+  private static final Map<String, String> fileVars = new HashMap<>();
 
   public static void loadFromFile(String path) {
     List<String> lines;

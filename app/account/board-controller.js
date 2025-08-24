@@ -3,11 +3,10 @@ import { Board } from "../game/board.js";
 import { Side } from "../game/piece.js";
 
 export class BoardController {
-  static $inject = ["$scope"];
-  constructor($scope) {
+  constructor() {
     this.board = new Board();
 
-    const army = new Army(Side.NEITHER);
+    const army = new Army(Side.A);
     army.shuffle();
     army.pieces.forEach((piece, index) => {
       const pieceDiv = document.createElement("div");
@@ -15,7 +14,7 @@ export class BoardController {
       pieceDiv.id = `piece-${piece.rank}`;
       pieceDiv.innerText = piece.rank;
       board.appendChild(pieceDiv);
-      const el = this.board[60 + index];
+      const el = this.board.squares[60 + index].elem;
 
       requestAnimationFrame(() => {
         const rect = el.getBoundingClientRect();
@@ -27,6 +26,8 @@ export class BoardController {
 
         pieceDiv.style.left = `${left}px`;
         pieceDiv.style.top = `${top}px`;
+
+        piece.attach(pieceDiv);
       });
     });
   }
